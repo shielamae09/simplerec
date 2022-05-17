@@ -1,0 +1,49 @@
+	/*content */
+	.hc{
+		  background: linear-gradient(
+    160deg,
+    rgb(213, 71, 168),
+     rgb(223, 77, 77)
+
+  );
+	}
+
+
+
+	.hc1{
+				  background: linear-gradient(
+    170deg,
+    rgb(213, 71, 168),
+    rgb(223, 77, 77),
+    rgb(103, 12, 74)
+  );
+	}
+
+
+    .hc2{
+                  background: linear-gradient(
+    170deg,
+    rgb(213, 71, 168,0.5),
+    rgb(223, 77, 77),
+    rgb(103, 12, 74,0.5)
+  );
+              }
+
+
+
+.design1{
+  background: url("../assets/pictures/side1.png");
+
+  object-fit: fill;
+  background-repeat: no-repeat;
+  background-position: 0px -330px;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  position: relative;
+    }
+
+
+
+
+    
