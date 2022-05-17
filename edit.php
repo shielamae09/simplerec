@@ -7,6 +7,33 @@ include 'config.php';
 
 ?>
 
+<?php 
+
+include 'config.php';
+
+if (isset($_POST['submit'])) {
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $username = $_POST['username'];
+  $gender = $_POST['gender'];
+  $address = $_POST['address'];
+  $birth_month = $_POST['birth_month'];
+  $birth_day = $_POST['birth_day'];
+  $birth_year = $_POST['birth_year'];
+
+  $update_sql = "UPDATE users SET firstname='$firstname',lastname='$lastname',username='$username', gender='$gender', address='$address', birth_month='$birth_month', birth_day='$birth_day', birth_year='$birth_year' WHERE id='$existuser'";
+
+  $update = mysqli_query($conn,$update_sql);
+
+  if ($update) {
+    header('Location: records.php?status=update_success');
+  }
+  else{
+    header('Location: records.php?status=update_error');
+  }
+}
+?>
+
 
 <nav class="navbar hc p-2">
   <div class="float-start">
@@ -41,7 +68,7 @@ include 'config.php';
 
 <?php
 
-$query_user = "SELECT * FROM users WHERE username='$existuser' ";
+$query_user = "SELECT * FROM users WHERE id='$existuser'";
 
 $result = $conn->query($query_user);
 $num=1;
@@ -59,12 +86,12 @@ if ($result->num_rows > 0) {
     <form method="POST">
 <div class="input-group input-group-sm mb-3">
   <span class="input-group-text" id="basic-addon3" style="font-size:10px;">First Name</span>
-  <input type="text" class="form-control" name="Firstname"  value="<?=$row['Firstname']?>"  placeholder="<?=" ".$row['Firstname']?>" id="basic-url" aria-describedby="basic-addon3">
+  <input type="text" class="form-control" name="firstname"  value="<?=$row['firstname']?>"  placeholder="<?=" ".$row['firstname']?>" id="basic-url" aria-describedby="basic-addon3">
 </div>
 
 <div class="input-group input-group-sm mb-3">
   <span class="input-group-text" id="basic-addon3" style="font-size:10px;">Last Name</span>
-  <input type="text" class="form-control" name="Lastname"  value="<?=$row['Lastname']?>"  placeholder="<?=" ".$row['Lastname']?>" id="basic-url" aria-describedby="basic-addon3">
+  <input type="text" class="form-control" name="lastname"  value="<?=$row['lastname']?>"  placeholder="<?=" ".$row['lastname']?>" id="basic-url" aria-describedby="basic-addon3">
 </div>
 
 <div class="input-group input-group-sm mb-3">
@@ -83,20 +110,20 @@ if ($result->num_rows > 0) {
 	        <div style="height: 20px"></div>
 	        <label for="email"><b>Birthdate</b></label>
 	        <div class="field">
-	        	<select style="width: 100%; border: none; height: 50px; padding-left: 10px; background-color: rgba(0,0,0,0.08)" name="month">
+	        	<select style="width: 100%; border: none; height: 50px; padding-left: 10px; background-color: rgba(0,0,0,0.08)" name="birth_month">
 		               	<option value="NS">Select Month</option>
-		                <option value="January" <?php if($account['month'] == 'January') { echo "selected='true'"; } ?>>1</option>
-		                <option value="February" <?php if($account['month'] == 'February') { echo "selected='true'"; } ?>>2</option>
-		                <option value="March" <?php if($account['month'] == 'March') { echo "selected='true'"; } ?>>3</option>
-		                <option value="April" <?php if($account['month'] == 'April') { echo "selected='true'"; } ?>>4</option>
-		                <option value="May" <?php if($account['month'] == 'May') { echo "selected='true'"; } ?>>5</option>
-		                <option value="June" <?php if($account['month'] == 'June') { echo "selected='true'"; } ?>>6</option>
-		                <option value="July" <?php if($account['month'] == 'July') { echo "selected='true'"; } ?>>7</option>
-		                <option value="August" <?php if($account['month'] == 'August') { echo "selected='true'"; } ?>>8</option>
-		                <option value="September" <?php if($account['month'] == 'September') { echo "selected='true'"; } ?>>9</option>
-		                <option value="October" <?php if($account['month'] == 'October') { echo "selected='true'"; } ?>>10</option>
-		                <option value="November" <?php if($account['month'] == 'November') { echo "selected='true'"; } ?>>11</option>
-		                <option value="December" <?php if($account['month'] == 'December') { echo "selected='true'"; } ?>>12</option>
+		                <option value="January" <?php if($row['birth_month'] == 'January') { echo "selected"; } ?>>1</option>
+		                <option value="February" <?php if($row['birth_month'] == 'February') { echo "selected"; } ?>>2</option>
+		                <option value="March" <?php if($row['birth_month'] == 'March') { echo "selected"; } ?>>3</option>
+		                <option value="April" <?php if($row['birth_month'] == 'April') { echo "selected"; } ?>>4</option>
+		                <option value="May" <?php if($row['birth_month'] == 'May') { echo "selected"; } ?>>5</option>
+		                <option value="June" <?php if($row['birth_month'] == 'June') { echo "selected"; } ?>>6</option>
+		                <option value="July" <?php if($row['birth_month'] == 'July') { echo "selected"; } ?>>7</option>
+		                <option value="August" <?php if($row['birth_month'] == 'August') { echo "selected"; } ?>>8</option>
+		                <option value="September" <?php if($row['birth_month'] == 'September') { echo "selected"; } ?>>9</option>
+		                <option value="October" <?php if($row['birth_month'] == 'October') { echo "selected"; } ?>>10</option>
+		                <option value="November" <?php if($row['birth_month'] == 'November') { echo "selected"; } ?>>11</option>
+		                <option value="December" <?php if($row['birth_month'] == 'December') { echo "selected"; } ?>>12</option>
 		           </select>
 	        </div>
 
@@ -104,19 +131,19 @@ if ($result->num_rows > 0) {
 	        <label for="email"><b>Day</b></label>
 
 	        <div class="field">
-	          	<input type="text" name = "day" value="<?php echo $account['day']; ?>" required placeholder="Day">
+	          	<input type="text" name="birth_day" value="<?php echo $row['birth_day']; ?>" required placeholder="Birth Day">
 	        </div>
 
 	        <div style="height: 10px"></div>
 	        <label for="email"><b>Year</b></label>
 	        	<div class="field">
-	        		<select style="width: 100%; border: none; height: 50px; padding-left: 10px; background-color: rgba(0,0,0,0.08)" name="year">
+	        		<select style="width: 100%; border: none; height: 50px; padding-left: 10px; background-color: rgba(0,0,0,0.08)" name="birth_year">
 		               	<option value="NS">Select Year</option>
 		                <?php 
 			                $i = 2000;
 			                while ($i <= 2022) {
 		                ?>
-		                	<option value="<?php echo $i; ?>" <?php if($account['year'] == $i) { echo "selected='true'"; } ?>>
+		                	<option value="<?php echo $i; ?>" <?php if($row['birth_year'] == $i) { echo "selected"; } ?>>
 		                		<?php echo $i; ?>
 		                	</option>
 		                <?php $i++; } ?>
@@ -124,7 +151,7 @@ if ($result->num_rows > 0) {
 	        	</div>
 
     <button type="submit" name="submit" class="btn btn-success btn-sm">UPDATE</button>
-        <a  href="records.php" class="btn btn-sm btn-primary float-end shadow">Back</a>
+    <a  href="records.php" class="btn btn-sm btn-primary float-end shadow">Back</a>
     </form>
 
 
@@ -149,41 +176,7 @@ if ($result->num_rows > 0) {
 
 <!-- UPDATE -->
 
-<?php 
-
-include 'config.php';
-
-if (isset($_POST['submit'])) {
- 
-$Firstname = $_POST['Firstname'];
-$Lastname = $_POST['Lastname'];
-$username = $_POST['username'];
-$gender = $_POST['gender'];
-$address = $_POST['address'];
-$month = $_POST['month'];
-$day = $_POST['day'];
-$day = $_POST['year'];
-
- $update_sql = "UPDATE users SET Firstname='$Firstname',Lastname='$Lastname',username='$username', gender='$gender', adddress='$address', month='$month', day='$day', year='$year' WHERE username='$existuser'  ";
-
-
- $update = mysqli_query($conn,$update_sql);
-
- if ($update) {
-        header('Location: records.php?status=update_success');
- }
- else{
-        header('Location: records.php?status=update_error');
- }
-
-
 }
-
-// $sql = "UPDATE users SET lastname='Doe' WHERE id=2";
-
-
-
-?>
 
 </div>
 </div>
