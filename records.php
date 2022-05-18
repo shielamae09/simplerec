@@ -179,11 +179,9 @@ include 'config.php';
 
 $current_user = $_SESSION['username'];
 
-
-
 // getting current user
 
-$query_user = "SELECT * FROM users ";
+$query_user = "SELECT * FROM users";
 
 $result = $conn->query($query_user);
 $num=1;
@@ -197,13 +195,13 @@ if ($result->num_rows > 0) {
         <!-- fetch current user login only view action-->
                 <tr class="text-center">
 
-      <td class="table-active text-capitalize"><?=$row['Firstname']."  ".$row['Lastname']?></td>
+      <td class="table-active text-capitalize"><?=$row['firstname']."  ".$row['lastname']?></td>
       <td class="table-active text-capitalize"><?=$row['username']?></td>
       <td class="table-active text-capitalize"><?=$row['gender']?></td>
       <td class="table-active text-capitalize"><?=$row['address']?></td>
-      <td class="table-active text-capitalize"><?=$row['month']."  ".$row['day']."  ".$row['year']?></td>
+      <td class="table-active text-capitalize"><?=$row['birth_month']."  ".$row['birth_day']."  ".$row['birth_year']?></td>
            <td class="table-active d-flex justify-content-around ">
-            <div class="col-sm-auto "><a href="edit.php?id=<?=$row["username"]?>"><button class="btn" type="submit" name="save" >Edit</button><button class="btn" type="submit" name="save" >Delete</button></a></div>
+            <div class="col-sm-auto "><a href="edit.php?id=<?=$row["id"]?>"><button class="btn" type="submit" name="save" >Edit</button><button class="btn" type="submit" name="save" >Delete</button></a></div>
            </td>
     </tr>
 
@@ -212,18 +210,17 @@ if ($result->num_rows > 0) {
 
       else{
         ?>
-        <!-- fetch all users and action functionality-->
-                <tr class="text-center">
 
-      <td class=" text-capitalize"><?=$row['Firstname']."  ".$row['Lastname']?></td>
+    <tr class="text-center">
+      <td class=" text-capitalize"><?=$row['firstname']."  ".$row['lastname']?></td>
       <td class="text-capitalize "><?=$row['username']?></td>
       <td class="table-active text-capitalize"><?=$row['gender']?></td>
       <td class="table-active text-capitalize"><?=$row['address']?></td>
-      <td class="table-active text-capitalize"><?=$row['month']."  ".$row['day']."  ".$row['year']?></td>
-           <td class="d-flex justify-content-around "> 
-            <div class="col-sm-auto "><a href='edit.php?id=<?=$row["username"]?>'><button class="btn" type="submit" name="save" >Edit</button></a></div>
-            <div class="col-sm-auto "><a href='delete.php?id=<?=$row["username"]?>' onclick="return confirm('are you sure you want to delete this record ?')"><button class="btn" type="submit" name="save" >Delete</button></a></div>
-           </td>
+      <td class="table-active text-capitalize"><?=$row['birth_month']."  ".$row['birth_day']."  ".$row['birth_year']?></td>
+      <td class="d-flex justify-content-around "> 
+        <div class="col-sm-auto "><a href='edit.php?id=<?=$row["id"]?>'><button class="btn" type="submit" name="save" >Edit</button></a></div>
+        <div class="col-sm-auto "><a href='delete.php?id=<?=$row["id"]?>' onclick="return confirm('are you sure you want to delete this record ?')"><button class="btn" type="submit" name="save" >Delete</button></a></div>
+      </td>
     </tr>
 
 
